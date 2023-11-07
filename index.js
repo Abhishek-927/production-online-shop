@@ -13,7 +13,6 @@ dotenv.config();
 
 const PORT = process.env.PORT || 8000;
 const app = express();
-connectToDB(); //connecting to database
 
 //middlewares
 app.use(express.json());
@@ -30,6 +29,9 @@ app.use("*", function (req, res) {
 });
 
 //listening on server
-app.listen(PORT, () => {
-  console.log(`server runnig at localhost:`, PORT);
-});
+connectToDB().then(() =>{
+  app.listen(PORT, () => {
+    console.log(`server runnig at localhost:`, PORT);
+  })
+})
+
